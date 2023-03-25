@@ -9,3 +9,6 @@ C:\Users\USER\source\repos\ClienteWS\obj\Debug\ClienteWS.csproj.GenerateResource
 C:\Users\USER\source\repos\ClienteWS\obj\Debug\ClienteWS.csproj.CoreCompileInputs.cache
 C:\Users\USER\source\repos\ClienteWS\obj\Debug\ClienteWS.exe
 C:\Users\USER\source\repos\ClienteWS\obj\Debug\ClienteWS.pdb
+C:\Users\USER\source\repos\ClienteWS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\USER\source\repos\ClienteWS\bin\Debug\Newtonsoft.Json.xml
+C:\Users\USER\source\repos\ClienteWS\obj\Debug\ClienteWS.csproj.CopyComplete
