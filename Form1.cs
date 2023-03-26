@@ -16,8 +16,8 @@ namespace ClienteWS
     public partial class Form1 : Form
     {
         bool editar = false;
-        string carpeta = "2ndtestslim"; //de yo
-        //string carpeta = "WS/p08"; //de zucena
+        //string carpeta = "2ndtestslim"; //de yo
+            string carpeta = "WS/p08"; //de zucena
         public Form1()
         {
             InitializeComponent();
@@ -29,8 +29,10 @@ namespace ClienteWS
             comboBox3.SelectedIndex = 0;
         }
 
+        
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            comboBox1.BackColor = Color.White;
             if (comboBox1.SelectedIndex == 0)
             {
                 label4.Text = "Categoria:";
@@ -509,6 +511,46 @@ namespace ClienteWS
 
             bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
             return isNum;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox3.BackColor = Color.White;
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
         }
     }
     // Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(myJsonResponse);
