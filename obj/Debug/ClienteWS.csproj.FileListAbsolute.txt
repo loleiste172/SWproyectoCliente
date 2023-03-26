@@ -12,3 +12,17 @@ C:\Users\USER\source\repos\ClienteWS\obj\Debug\ClienteWS.pdb
 C:\Users\USER\source\repos\ClienteWS\bin\Debug\Newtonsoft.Json.dll
 C:\Users\USER\source\repos\ClienteWS\bin\Debug\Newtonsoft.Json.xml
 C:\Users\USER\source\repos\ClienteWS\obj\Debug\ClienteWS.csproj.CopyComplete
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\bin\Debug\ClienteWS.exe.config
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\bin\Debug\ClienteWS.exe
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\bin\Debug\ClienteWS.pdb
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\bin\Debug\Newtonsoft.Json.dll
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\bin\Debug\Newtonsoft.Json.xml
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.csproj.AssemblyReference.cache
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.csproj.SuggestedBindingRedirects.cache
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.Form1.resources
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.Properties.Resources.resources
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.csproj.GenerateResource.cache
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.csproj.CoreCompileInputs.cache
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.csproj.CopyComplete
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.exe
+C:\Users\MARIAFLORESSANCHEZ\Source\Repos\SWproyectoCliente\obj\Debug\ClienteWS.pdb
