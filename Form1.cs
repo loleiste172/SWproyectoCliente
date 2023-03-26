@@ -45,12 +45,23 @@ namespace ClienteWS
 
         private void button6_Click(object sender, EventArgs e)
         {
+            string txtbox3 = "";
+            if (!validar_usr_pass())
+            {
+                return;
+            }
+            if (!validar_ventas())
+            {
+                return;
+            }
+            
             //HttpClient client = new HttpClient();
             dataGridView1.Columns.Clear();
 
             if (comboBox1.SelectedIndex == 0)
             {
-                string resp = get_productos(textBox1.Text, textBox2.Text, textBox3.Text);
+                txtbox3 = textBox3.Text.ToLower();
+                string resp = get_productos(textBox1.Text, textBox2.Text, txtbox3);
                 //MessageBox.Show(resp);
                 Respuesta res = JsonConvert.DeserializeObject<Respuesta>(resp);
                 //MessageBox.Show(res.data);
@@ -64,7 +75,7 @@ namespace ClienteWS
                     dataGridView1.Columns.Add("columna2", "Nombre");
                     foreach (string x in json.Keys)
                     {
-                        int rowEscribir = dataGridView1.Rows.Count - 1;
+                        int rowEscribir = dataGridView1.Rows.Count;
                         dataGridView1.Rows.Add(1);
                         dataGridView1.Rows[rowEscribir].Cells[0].Value = x;
                         dataGridView1.Rows[rowEscribir].Cells[1].Value = json[x];
@@ -78,7 +89,8 @@ namespace ClienteWS
             }
             if (comboBox1.SelectedIndex == 1)
             {
-                string rsp = get_detalles(textBox1.Text, textBox2.Text, textBox3.Text);
+                txtbox3 = textBox3.Text.ToUpper();
+                string rsp = get_detalles(textBox1.Text, textBox2.Text, txtbox3);
                 RespDetalles respuesta = JsonConvert.DeserializeObject<RespDetalles>(rsp);
                 label19.Text = respuesta.code;
                 label20.Text = respuesta.message;
@@ -124,6 +136,7 @@ namespace ClienteWS
                 var req = new HttpRequestMessage(HttpMethod.Get, "http://localhost:8080/" + carpeta + "/productos/" + categoria);
                 req.Headers.Add("user", user);
                 req.Headers.Add("pass", pass);
+                
                 var contenido = client.SendAsync(req).Result;
 
                 respuesta = contenido.Content.ReadAsStringAsync().Result;
@@ -232,13 +245,32 @@ namespace ClienteWS
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+            if (!validar_usr_pass())
+            {
+                return;
+            }
+            if (textBox4.Text == "")
+            {
+                errorProvider4.SetError(textBox4, "Este campo no puede estar vacio");
+                return;
+            }
+            else
+            {
+                errorProvider4.Clear();
+            }
             dataGridView2.Rows.Clear();
-            string rsp = get_productos(textBox1.Text, textBox2.Text, textBox4.Text);
+            string rsp = get_productos(textBox1.Text, textBox2.Text, textBox4.Text.ToLower());
             Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(rsp);
+            if (resp.status == "error")
+            {
+                MessageBox.Show("La consulta contiene un error, detalles: \n" + resp.message, "Algo salio mal... [" + resp.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(resp.data);
             foreach (string x in json.Keys)
             {
-                int rowEscribir = dataGridView2.Rows.Count - 1;
+                int rowEscribir = dataGridView2.Rows.Count;
                 dataGridView2.Rows.Add(1);
                 dataGridView2.Rows[rowEscribir].Cells[0].Value = x;
                 dataGridView2.Rows[rowEscribir].Cells[1].Value = json[x];
@@ -254,6 +286,11 @@ namespace ClienteWS
                 string isbn = dataGridView2.Rows[index].Cells[0].Value.ToString();
                 string rsr_det = get_detalles(textBox1.Text, textBox2.Text, isbn);
                 RespDetalles resp = JsonConvert.DeserializeObject<RespDetalles>(rsr_det);
+                if (resp.status == "error")
+                {
+                    MessageBox.Show("La consulta contiene un error, detalles: \n" + resp.message, "Algo salio mal... [" + resp.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 Detalles det = JsonConvert.DeserializeObject<Detalles>(resp.data);
                 textBox11.Text = isbn;
                 string cat = isbn.Substring(0, 3);
@@ -315,6 +352,15 @@ namespace ClienteWS
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (!validar_add())
+            {
+                errorProvider5.SetError(button2, "Algunos campos estan vacios o tienen tipos de datos incorrectos, la solicitud no se puede llevar a cabo");
+                return;
+            }
+            else
+            {
+                errorProvider5.Clear();
+            }
             Detalles nvo_detalles = new Detalles
             {
                 Autor = textBox5.Text,
@@ -331,13 +377,23 @@ namespace ClienteWS
             {
                 string putresponse = put_producto(textBox1.Text, textBox2.Text, textBox11.Text, producto);
                 Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(putresponse);
-                MessageBox.Show("Operacion realizada con codigo: " + resp.code + " y con mensaje:\n" + resp.message + " con hora de accion " + resp.data);
+                if (resp.status == "error")
+                {
+                    MessageBox.Show("La consulta contiene un error, detalles: \n" + resp.message, "Algo salio mal... [" + resp.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                MessageBox.Show("Operacion realizada con codigo: " + resp.code + " y con mensaje:\n" + resp.message + " con hora de accion " + resp.data, "Operación exitosa ["+resp.code+"]", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 string rsppost=post_producto(textBox1.Text, textBox2.Text, comboBox3.SelectedItem.ToString().ToLower(), producto);
                 Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(rsppost);
-                MessageBox.Show("Operacion realizada con codigo: "+resp.code+" y con mensaje:\n"+resp.message+" con hora de accion "+resp.data);
+                if (resp.status == "error")
+                {
+                    MessageBox.Show("La consulta contiene un error, detalles: \n" + resp.message, "Algo salio mal... [" + resp.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                MessageBox.Show("Operacion realizada con codigo: "+resp.code+" y con mensaje:\n"+resp.message+" con hora de accion "+resp.data, "Operación exitosa [" + resp.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             comboBox3.SelectedIndex = 0;
             textBox5.Text = "";
@@ -364,12 +420,95 @@ namespace ClienteWS
                 DialogResult result= MessageBox.Show("¿Esta seguro de querer eliminar el producto con ISBN: " + isbn + " y nombre: " + nombre + "? \n ¡Esta accion NO se puede deshacer!", "Eliminacion de registro", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if(result == DialogResult.Yes)
                 {
-
                     string delete_resp = delete_producto(textBox1.Text, textBox2.Text, isbn);
                     Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(delete_resp);
-                    MessageBox.Show("Operacion realizada con codigo: " + resp.code + " y con mensaje:\n" + resp.message + " con hora de accion " + resp.data);
+                    if (resp.status == "error")
+                    {
+                        MessageBox.Show("La consulta contiene un error, detalles: \n" + resp.message, "Algo salio mal... [" + resp.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    MessageBox.Show("Operacion realizada con codigo: " + resp.code + " y con mensaje:\n" + resp.message + " con hora de accion " + resp.data, "Operación exitosa [" + resp.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+        private bool validar_ventas()
+        {
+            bool valido = true;
+            if (textBox3.Text == "")
+            {
+                errorProvider1.SetError(textBox3, "Este campo no puede estar vacío");
+                valido = false;
+            }
+            else
+            {
+                errorProvider1.Clear();
+            }
+            return valido;
+        }
+        private bool validar_usr_pass()
+        {
+            bool valido = true;
+            if (textBox1.Text=="")
+            {
+                errorProvider2.SetError(textBox1, "El campo usuario no debe estar vacio");
+                valido = false;
+            }
+            else
+            {
+                errorProvider2.Clear();
+            }
+            if (textBox2.Text == "")
+            {
+                errorProvider3.SetError(textBox2, "La contraseña no puede estar vacia");
+            }
+            else
+            {
+                errorProvider3.Clear();
+            }
+            return valido;
+        }
+        private bool validar_add()
+        {
+            bool validar = true;
+            if (textBox5.Text == "" || textBox6.Text == "" || textBox7.Text == "" || textBox8.Text == "" || textBox9.Text == "" || textBox10.Text == "")
+            {
+                validar = false;
+            }
+            if (!IsNumeric(textBox8.Text))
+            {
+                validar = false;
+                errorProvider1.SetError(textBox8, "No se permiten valores no enteros");
+            }
+            else
+            {
+                errorProvider1.Clear();
+            }
+            if (!IsNumeric(textBox9.Text))
+            {
+                validar = false;
+                errorProvider2.SetError(textBox9, "No se permiten valores enteros");
+            }
+            else
+            {
+                errorProvider2.Clear();
+            }
+            if (!IsNumeric(textBox10.Text))
+            {
+                errorProvider3.SetError(textBox10, "No se permiten valores enteros");
+                validar = false;
+            }
+            else
+            {
+                errorProvider3.Clear();
+            }
+            return validar;
+        }
+        public static bool IsNumeric(object Expression)
+        {
+            double retNum;
+
+            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            return isNum;
         }
     }
     // Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(myJsonResponse);
