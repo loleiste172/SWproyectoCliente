@@ -16,8 +16,8 @@ namespace ClienteWS
     public partial class Form1 : Form
     {
         bool editar = false;
-        //string carpeta = "2ndtestslim"; //de yo
-            string carpeta = "WS/p08"; //de zucena
+        string carpeta = "2ndtestslim"; //de yo
+        //string carpeta = "WS/p08"; //de zucena
         public Form1()
         {
             InitializeComponent();
@@ -488,7 +488,7 @@ namespace ClienteWS
             if (!IsNumeric(textBox9.Text))
             {
                 validar = false;
-                errorProvider2.SetError(textBox9, "No se permiten valores enteros");
+                errorProvider2.SetError(textBox9, "No se permiten valores no enteros");
             }
             else
             {
@@ -496,7 +496,7 @@ namespace ClienteWS
             }
             if (!IsNumeric(textBox10.Text))
             {
-                errorProvider3.SetError(textBox10, "No se permiten valores enteros");
+                errorProvider3.SetError(textBox10, "No se permiten valores no enteros");
                 validar = false;
             }
             else
