@@ -45,7 +45,7 @@ namespace ClienteWS
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private async void button6_Click(object sender, EventArgs e)
         {
             string txtbox3 = "";
             if (!validar_usr_pass())
@@ -63,7 +63,7 @@ namespace ClienteWS
             if (comboBox1.SelectedIndex == 0)
             {
                 txtbox3 = textBox3.Text.ToLower();
-                string resp = get_productos(textBox1.Text, textBox2.Text, txtbox3);
+                string resp = await TokenUtils.get_productos(textBox1.Text, textBox2.Text, txtbox3);
                 //MessageBox.Show(resp);
                 Respuesta res = JsonConvert.DeserializeObject<Respuesta>(resp);
                 //MessageBox.Show(res.data);
@@ -92,7 +92,7 @@ namespace ClienteWS
             if (comboBox1.SelectedIndex == 1)
             {
                 txtbox3 = textBox3.Text.ToUpper();
-                string rsp = get_detalles(textBox1.Text, textBox2.Text, txtbox3);
+                string rsp = await TokenUtils.get_detalles(textBox1.Text, textBox2.Text, txtbox3);
                 RespDetalles respuesta = JsonConvert.DeserializeObject<RespDetalles>(rsp);
                 label19.Text = respuesta.code;
                 label20.Text = respuesta.message;
@@ -129,123 +129,9 @@ namespace ClienteWS
 
         }
 
-        private string get_productos(string user, string pass, string categoria)
-        {
-            
-            string respuesta = "";
-            using(var client=new HttpClient())
-            {
-                var req = new HttpRequestMessage(HttpMethod.Get, "http://localhost:8080/" + carpeta + "/productos/" + categoria);
-                req.Headers.Add("user", user);
-                req.Headers.Add("pass", pass);
-                
-                var contenido = client.SendAsync(req).Result;
+        
 
-                respuesta = contenido.Content.ReadAsStringAsync().Result;
-            }
-            return respuesta;
-        }
-
-        private string get_detalles(string user, string pass, string ISBN)
-        {
-            string respuesta = "";
-            using(var client=new HttpClient())
-            {
-                var req = new HttpRequestMessage(HttpMethod.Get, "http://localhost:8080/" + carpeta + "/detalles/" + ISBN);
-                req.Headers.Add("user", user);
-                req.Headers.Add("pass", pass);
-                var contenido = client.SendAsync(req).Result;
-
-                respuesta = contenido.Content.ReadAsStringAsync().Result;
-            }
-
-            return respuesta;
-        }
-
-        private string post_producto(string user, string pass, string categoria, string producto)
-        {
-            string respuesta = "";
-
-            using(var client=new HttpClient())
-            {
-                
-                HttpRequestMessage request;
-                HttpResponseMessage response;
-
-                var endpoint = new Uri("http://localhost:8080/" + carpeta + "/producto");
-                request = new HttpRequestMessage(HttpMethod.Post, endpoint);
-                var strdata = JsonConvert.SerializeObject(new Body_req { categoria = categoria, producto = producto });
-                var strcontent = new StringContent(strdata, Encoding.UTF8, "application/json");
-                request.Content = strcontent;
-                List<NameValueHeaderValue> listheaders = new List<NameValueHeaderValue>();
-                listheaders.Add(new NameValueHeaderValue("user", user));
-                listheaders.Add(new NameValueHeaderValue("pass", pass));
-                foreach (var header in listheaders)
-                {
-                    request.Headers.Add(header.Name,header.Value);
-                }
-                response = client.SendAsync(request).Result;
-                respuesta = response.Content.ReadAsStringAsync().Result;
-            }
-
-            return respuesta;
-        }
-
-        private string put_producto(string user, string pass, string clave, string detalles)
-        {
-            string respuesta = "";
-            using(var client=new HttpClient())
-            {
-                HttpRequestMessage request;
-                HttpResponseMessage response;
-
-                var endpoint = new Uri("http://localhost:8080/" + carpeta + "/producto/detalles");
-                request = new HttpRequestMessage(HttpMethod.Put, endpoint);
-                var strdata = JsonConvert.SerializeObject(new Body_put() { clave=clave, detalles=detalles});
-                var strcontent = new StringContent(strdata, Encoding.UTF8, "application/json");
-                request.Content = strcontent;
-                List<NameValueHeaderValue> listheaders = new List<NameValueHeaderValue>();
-                listheaders.Add(new NameValueHeaderValue("user", user));
-                listheaders.Add(new NameValueHeaderValue("pass", pass));
-                foreach (var header in listheaders)
-                {
-                    request.Headers.Add(header.Name, header.Value);
-                }
-                response = client.SendAsync(request).Result;
-                respuesta = response.Content.ReadAsStringAsync().Result;
-            }
-
-            return respuesta;
-        }
-
-        private string delete_producto(string user, string pass, string clave)
-        {
-            string respuesta = "";
-            using (var client = new HttpClient())
-            {
-                HttpRequestMessage request;
-                HttpResponseMessage response;
-
-                var endpoint = new Uri("http://localhost:8080/" + carpeta + "/producto");
-                request = new HttpRequestMessage(HttpMethod.Delete, endpoint);
-                var strdata = JsonConvert.SerializeObject(new Body_delete() { clave = clave });
-                var strcontent = new StringContent(strdata, Encoding.UTF8, "application/json");
-                request.Content = strcontent;
-                List<NameValueHeaderValue> listheaders = new List<NameValueHeaderValue>();
-                listheaders.Add(new NameValueHeaderValue("user", user));
-                listheaders.Add(new NameValueHeaderValue("pass", pass));
-                foreach (var header in listheaders)
-                {
-                    request.Headers.Add(header.Name, header.Value);
-                }
-                response = client.SendAsync(request).Result;
-                respuesta = response.Content.ReadAsStringAsync().Result;
-            }
-
-            return respuesta;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             
             if (!validar_usr_pass())
@@ -262,7 +148,7 @@ namespace ClienteWS
                 errorProvider4.Clear();
             }
             dataGridView2.Rows.Clear();
-            string rsp = get_productos(textBox1.Text, textBox2.Text, textBox4.Text.ToLower());
+            string rsp = await TokenUtils.get_productos(textBox1.Text, textBox2.Text, textBox4.Text.ToLower());
             Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(rsp);
             if (resp.status == "error")
             {
@@ -280,13 +166,13 @@ namespace ClienteWS
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private async void button5_Click(object sender, EventArgs e)
         {
             if (dataGridView2.SelectedRows.Count > 0)
             {
                 int index = dataGridView2.SelectedRows[0].Index;
                 string isbn = dataGridView2.Rows[index].Cells[0].Value.ToString();
-                string rsr_det = get_detalles(textBox1.Text, textBox2.Text, isbn);
+                string rsr_det =await TokenUtils.get_detalles(textBox1.Text, textBox2.Text, isbn);
                 RespDetalles resp = JsonConvert.DeserializeObject<RespDetalles>(rsr_det);
                 if (resp.status == "error")
                 {
@@ -352,7 +238,7 @@ namespace ClienteWS
             textBox10.Text = "";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             if (!validar_add())
             {
@@ -377,7 +263,7 @@ namespace ClienteWS
             string producto = JsonConvert.SerializeObject(nvo_detalles);
             if (editar)
             {
-                string putresponse = put_producto(textBox1.Text, textBox2.Text, textBox11.Text, producto);
+                string putresponse = await TokenUtils.put_producto(textBox1.Text, textBox2.Text, textBox11.Text, producto);
                 Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(putresponse);
                 if (resp.status == "error")
                 {
@@ -388,7 +274,7 @@ namespace ClienteWS
             }
             else
             {
-                string rsppost=post_producto(textBox1.Text, textBox2.Text, comboBox3.SelectedItem.ToString().ToLower(), producto);
+                string rsppost=await TokenUtils.post_producto(textBox1.Text, textBox2.Text, comboBox3.SelectedItem.ToString().ToLower(), producto);
                 Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(rsppost);
                 if (resp.status == "error")
                 {
@@ -412,7 +298,7 @@ namespace ClienteWS
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
             if(dataGridView2.SelectedRows.Count > 0)
             {
@@ -422,7 +308,7 @@ namespace ClienteWS
                 DialogResult result= MessageBox.Show("¿Esta seguro de querer eliminar el producto con ISBN: " + isbn + " y nombre: " + nombre + "? \n ¡Esta accion NO se puede deshacer!", "Eliminacion de registro", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if(result == DialogResult.Yes)
                 {
-                    string delete_resp = delete_producto(textBox1.Text, textBox2.Text, isbn);
+                    string delete_resp =await TokenUtils.delete_producto(textBox1.Text, textBox2.Text, isbn);
                     Respuesta resp = JsonConvert.DeserializeObject<Respuesta>(delete_resp);
                     if (resp.status == "error")
                     {
@@ -509,7 +395,7 @@ namespace ClienteWS
         {
             double retNum;
 
-            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            bool isNum = double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
             return isNum;
         }
 

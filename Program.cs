@@ -16,7 +16,10 @@ namespace ClienteWS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            loading main = new loading();
+            main.Show();
+            Application.Run();
         }
     }
 }
