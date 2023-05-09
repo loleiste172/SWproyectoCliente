@@ -98,13 +98,8 @@ namespace ClienteWS
                 var strdata = JsonConvert.SerializeObject(new Body_req { categoria = categoria, producto = producto });
                 var strcontent = new StringContent(strdata, Encoding.UTF8, "application/json");
                 request.Content = strcontent;
-                List<NameValueHeaderValue> listheaders = new List<NameValueHeaderValue>();
-                listheaders.Add(new NameValueHeaderValue("user", user));
-                listheaders.Add(new NameValueHeaderValue("pass", pass));
-                foreach (var header in listheaders)
-                {
-                    request.Headers.Add(header.Name, header.Value);
-                }
+                request.Headers.TryAddWithoutValidation("user", user);
+                request.Headers.TryAddWithoutValidation("pass", pass);
                 response = await client.SendAsync(request);
                 respuesta = await response.Content.ReadAsStringAsync();
             }
@@ -125,13 +120,8 @@ namespace ClienteWS
                 var strdata = JsonConvert.SerializeObject(new Body_put() { clave = clave, detalles = detalles });
                 var strcontent = new StringContent(strdata, Encoding.UTF8, "application/json");
                 request.Content = strcontent;
-                List<NameValueHeaderValue> listheaders = new List<NameValueHeaderValue>();
-                listheaders.Add(new NameValueHeaderValue("user", user));
-                listheaders.Add(new NameValueHeaderValue("pass", pass));
-                foreach (var header in listheaders)
-                {
-                    request.Headers.Add(header.Name, header.Value);
-                }
+                request.Headers.TryAddWithoutValidation("user", user);
+                request.Headers.TryAddWithoutValidation("pass", pass);
                 response = await client.SendAsync(request);
                 respuesta = await response.Content.ReadAsStringAsync();
             }
@@ -152,18 +142,27 @@ namespace ClienteWS
                 var strdata = JsonConvert.SerializeObject(new Body_delete() { clave = clave });
                 var strcontent = new StringContent(strdata, Encoding.UTF8, "application/json");
                 request.Content = strcontent;
-                List<NameValueHeaderValue> listheaders = new List<NameValueHeaderValue>();
-                listheaders.Add(new NameValueHeaderValue("user", user));
-                listheaders.Add(new NameValueHeaderValue("pass", pass));
-                foreach (var header in listheaders)
-                {
-                    request.Headers.Add(header.Name, header.Value);
-                }
+                //List<NameValueHeaderValue> listheaders = new List<NameValueHeaderValue>();
+                //listheaders.Add(new NameValueHeaderValue("user", user));
+                //listheaders.Add(new NameValueHeaderValue("pass", pass));
+                //foreach (var header in listheaders)
+                //{
+                //    request.Headers.TryAddWithoutValidation(header.Name, header.Value);
+                //}
+                request.Headers.TryAddWithoutValidation("user", user);
+                request.Headers.TryAddWithoutValidation("pass", pass);
                 response = await client.SendAsync(request);
                 respuesta = await response.Content.ReadAsStringAsync();
             }
 
             return respuesta;
+        }
+        public static bool IsNumeric(object Expression)
+        {
+            double retNum;
+
+            bool isNum = double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            return isNum;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ClienteWS.Properties;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace ClienteWS
         {
             InitializeComponent();
             user=new CurrentUser { correo=usr.correo, nombre=usr.nombre, pass=usr.pass};
+            label1.Text = "¡Bienvenido, " + user.nombre + "!";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -38,6 +40,9 @@ namespace ClienteWS
         private void ventas_Load(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = 0;
+            Random rnd = new Random();
+            int index = rnd.Next(0, imageList1.Images.Count);
+            pictureBox2.Image = imageList1.Images[index];
         }
 
         private bool validar_ventas()
@@ -57,13 +62,19 @@ namespace ClienteWS
 
         private async void button6_Click(object sender, EventArgs e)
         {
+            await load_table();
+        }
+
+        private async Task load_table()
+        {
             string txtbox3 = "";
             if (!validar_ventas())
             {
                 return;
             }
+            button6.Enabled = false;
             dataGridView1.Columns.Clear();
-
+            pictureBox1.Visible = true;
             if (comboBox1.SelectedIndex == 0)
             {
                 txtbox3 = textBox3.Text.ToLower();
@@ -85,17 +96,23 @@ namespace ClienteWS
                         dataGridView1.Rows.Add(1);
                         dataGridView1.Rows[rowEscribir].Cells[0].Value = x;
                         dataGridView1.Rows[rowEscribir].Cells[1].Value = json[x];
+                        pictureBox1.Visible = false;
+                        button6.Enabled = true;
                     }
                 }
                 else
                 {
+                    pictureBox1.Visible = false;
+                    button6.Enabled = true;
                     MessageBox.Show("La consulta contiene un error, detalles: \n" + res.message, "Algo salio mal... [" + res.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
+                button6.Enabled = true;
             }
             if (comboBox1.SelectedIndex == 1)
             {
                 txtbox3 = textBox3.Text.ToUpper();
+                pictureBox1.Visible = true;
+                button6.Enabled = false;
                 string rsp = await TokenUtils.get_detalles(user.correo, user.pass, txtbox3);
                 RespDetalles respuesta = JsonConvert.DeserializeObject<RespDetalles>(rsp);
                 label19.Text = respuesta.code;
@@ -124,12 +141,36 @@ namespace ClienteWS
                     index = dataGridView1.Rows.Add();
                     dataGridView1.Rows[index].Cells["Columna3"].Value = "Precio";
                     dataGridView1.Rows[index].Cells["Columna4"].Value = detalles.Precio;
+                    pictureBox1.Visible = false;
+                    button6.Enabled = true;
                 }
                 else
                 {
+                    pictureBox1.Visible = false;
+                    button6.Enabled = true;
                     MessageBox.Show("La consulta contiene un error, detalles: \n" + respuesta.message, "Algo salio mal... [" + respuesta.code + "]", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Seguro de querer cerrar sesión?", "Cerrar sesion", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (dr == DialogResult.Yes)
+            {
+                Settings.Default["AuthToken"] = "o-o-o-o";
+                Settings.Default["sesion"] = "-";
+                Settings.Default["id"] = "-";
+                Settings.Default.Save();
+                login nlog = new login(false);
+                nlog.Show();
+                Close();
+            }
+        }
+
+        private void ventas_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

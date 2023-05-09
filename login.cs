@@ -89,10 +89,11 @@ namespace ClienteWS
                 string[] secc = token.Split('-');
                 string sec = secc[2];
                 CurrentUser user = new CurrentUser { correo = textBox1.Text, pass=textBox2.Text, nombre = secc[0] };
-                Settings.Default["sesion"] = Hash.GetMD5(textBox2.Text);
+                Settings.Default["sesion"] =textBox2.Text;
                 Settings.Default["id"] = textBox1.Text;
                 //descomentar esto al final!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //Settings.Default["AuthToken"] = token;
+                Settings.Default["AuthToken"] = token;
+                Settings.Default.Save();
                 switch (sec)
                 {
                     case "ventas":
@@ -101,7 +102,9 @@ namespace ClienteWS
                         Close();
                         break;
                     case "almacen":
-                        //abrir almacen
+                        almacen frmalmacen = new almacen(user);
+                        frmalmacen.Show();
+                        Close();
                         break;
                     default:
                         Application.Exit();
@@ -177,7 +180,12 @@ namespace ClienteWS
 
         private void login_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Application.Exit();
+            //if (DialogResult == DialogResult.None)
+            //{
+            //    Application.Exit();
+            //}
+            
+            //
         }
     }
     class Validationauth

@@ -54,7 +54,8 @@ namespace ClienteWS
                 string[] secc = currenttoken.Split('-');
                 string sec = secc[2];
                 string corr = (string)Settings.Default["id"];
-                string pass = (string)Settings.Default["sesion"];
+                string pass= (string)Settings.Default["sesion"];
+
                 CurrentUser usr = new CurrentUser { nombre = secc[0], correo=corr, pass=pass };
                 switch (sec)
                 {
@@ -64,7 +65,9 @@ namespace ClienteWS
                         Close();
                         break;
                     case "almacen":
-                        //abrir almacen
+                        almacen frmalmacen = new almacen(usr);
+                        frmalmacen.Show();
+                        Close();
                         break;
                     default:
                         Application.Exit();
