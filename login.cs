@@ -187,6 +187,32 @@ namespace ClienteWS
             
             //
         }
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            if (validarform_reg())
+            {
+                errorProvider1.Clear();
+            }
+            else
+            {
+                errorProvider1.SetError(button2, "LLene todos los campos antes de proceder");
+                return;
+            }
+            //desactivar botones para evitar multiples peticiones
+            
+            string[] resp = await TokenUtils.post_nvoUser(textBox4.Text, textBox5.Text, textBox3.Text, comboBox1.SelectedItem.ToString().ToLower());
+            MessageBox.Show(resp[1], resp[0]);
+
+        }
+        private bool validarform_reg()
+        {
+            if (textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "")
+            {
+                return false;
+            }
+            return true;
+        }
     }
     class Validationauth
     {
@@ -198,4 +224,13 @@ namespace ClienteWS
         public string Token { get; set; }
         public string message { get; set; }
     }
+
+    public class NvoUser
+    {
+        public string aplicacion { get; set; }
+        public string correo { get; set; }
+        public string name { get; set; }
+        public string pass { get; set; }
+    }
+
 }

@@ -13,7 +13,7 @@ namespace ClienteWS
     {
         const string endpoint_validacion = "http://localhost:8080/proy_SW/authv2/auth";
         const string endpoint_verificacion = "http://localhost:5053/verification";
-        const string endpoint_registro = "";
+        const string endpoint_registro = "http://127.0.0.1:5000/usuarios";
         const string carpeta = "2ndtestslim"; //de yo
         //const string carpeta = "WS/p08"; //de zucena
 
@@ -105,6 +105,26 @@ namespace ClienteWS
             }
 
             return respuesta;
+        }
+
+        public static async Task<string[]> post_nvoUser(string correo, string pass, string username, string aplicacion)
+        {
+            string[] retorn = { "", "" };
+            using (var client=new HttpClient())
+            {
+                HttpRequestMessage request;
+                HttpResponseMessage response;
+                var endpoint = new Uri(endpoint_registro);
+                request = new HttpRequestMessage(HttpMethod.Post, endpoint);
+                var strdata = JsonConvert.SerializeObject(new NvoUser { correo = correo, pass = pass, name = username, aplicacion = aplicacion });
+                var strcontent = new StringContent(strdata, Encoding.UTF8, "application/json");
+                request.Content = strcontent;
+                response = await client.SendAsync(request);
+                string respuesta = await response.Content.ReadAsStringAsync();
+                retorn[0] = response.StatusCode.ToString();
+                retorn[1] = respuesta;
+            }
+            return retorn;
         }
 
         public static async Task<string> put_producto(string user, string pass, string clave, string detalles)

@@ -311,7 +311,7 @@ namespace ClienteWS
 
         private void almacen_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
         }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="almacen.Designer.cs">
       <DependentUpon>almacen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="CurrentUser.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
