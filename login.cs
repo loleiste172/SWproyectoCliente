@@ -190,6 +190,7 @@ namespace ClienteWS
 
         private async void button2_Click(object sender, EventArgs e)
         {
+
             if (validarform_reg())
             {
                 errorProvider1.Clear();
@@ -199,10 +200,43 @@ namespace ClienteWS
                 errorProvider1.SetError(button2, "LLene todos los campos antes de proceder");
                 return;
             }
-            //desactivar botones para evitar multiples peticiones
-            
             string[] resp = await TokenUtils.post_nvoUser(textBox4.Text, textBox5.Text, textBox3.Text, comboBox1.SelectedItem.ToString().ToLower());
-            MessageBox.Show(resp[1], resp[0]);
+            //MessageBox.Show( resp[0]);
+           if (resp[0]=="Created")
+            {
+                label12.ForeColor = Color.White;
+                label13.ForeColor = Color.White;
+                MessageBox.Show("Usuario agregado exitosamente", "Operacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tabControl1.SelectedTab = tabControl1.TabPages[0];
+                //desactivar botones para evitar multiples peticiones
+                textBox4.Text = "";
+                textBox5.Text = "";
+                textBox3.Text = "";
+                
+            }
+           else
+            {
+                label12.ForeColor = Color.White;
+                label13.ForeColor = Color.White;
+                Response res = JsonConvert.DeserializeObject<Response>(resp[1]);
+                if (res.message == "Correo ya existe, por favor crea otro" || res.message == "Correo invalido")
+                {
+                    label13.ForeColor = Color.Red;
+                    label13.Text = res.message;
+                    //label12.ForeColor = Color.White;
+                }
+                else
+                {
+                    label12.ForeColor = Color.Red;
+                    label12.Text = res.message;
+                    //label12.ForeColor = Color.White;
+
+                }
+
+            }
+
+
+
 
         }
         private bool validarform_reg()
@@ -212,6 +246,46 @@ namespace ClienteWS
                 return false;
             }
             return true;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
         }
     }
     class Validationauth
@@ -232,5 +306,12 @@ namespace ClienteWS
         public string name { get; set; }
         public string pass { get; set; }
     }
+
+    public class Response
+    {
+        public string status { get; set;}
+        public string message { get; set; }
+    }
+
 
 }

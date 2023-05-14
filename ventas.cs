@@ -170,7 +170,22 @@ namespace ClienteWS
 
         private void ventas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+           
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

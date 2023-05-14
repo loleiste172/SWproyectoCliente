@@ -313,5 +313,10 @@ namespace ClienteWS
         {
             //Application.Exit();
         }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

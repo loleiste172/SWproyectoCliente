@@ -11,11 +11,11 @@ namespace ClienteWS
 {
     internal class TokenUtils
     {
-        const string endpoint_validacion = "http://localhost:8080/proy_SW/authv2/auth";
+        const string endpoint_validacion = "http://localhost:8080/WS/proyecto_p2/authv2/auth";
         const string endpoint_verificacion = "http://localhost:5053/verification";
         const string endpoint_registro = "http://127.0.0.1:5000/usuarios";
-        const string carpeta = "2ndtestslim"; //de yo
-        //const string carpeta = "WS/p08"; //de zucena
+       // const string carpeta = "2ndtestslim"; //de yo
+        const string carpeta = "WS/p08"; //de zucena
 
         public static async Task<bool> validateToken(string Token)
         {

@@ -66,21 +66,21 @@
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider4 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button5
@@ -88,7 +88,7 @@
             this.button5.BackColor = System.Drawing.Color.DarkCyan;
             this.button5.Font = new System.Drawing.Font("Constantia", 12F);
             this.button5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button5.Location = new System.Drawing.Point(229, 377);
+            this.button5.Location = new System.Drawing.Point(227, 387);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(87, 33);
             this.button5.TabIndex = 16;
@@ -101,7 +101,7 @@
             this.button4.BackColor = System.Drawing.Color.DarkCyan;
             this.button4.Font = new System.Drawing.Font("Constantia", 12F);
             this.button4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button4.Location = new System.Drawing.Point(72, 377);
+            this.button4.Location = new System.Drawing.Point(75, 387);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(87, 33);
             this.button4.TabIndex = 15;
@@ -320,7 +320,7 @@
             this.button1.BackColor = System.Drawing.Color.DarkCyan;
             this.button1.Font = new System.Drawing.Font("Constantia", 11F);
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(264, 65);
+            this.button1.Location = new System.Drawing.Point(266, 38);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 27);
             this.button1.TabIndex = 13;
@@ -332,7 +332,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Constantia", 11F);
-            this.label5.Location = new System.Drawing.Point(8, 69);
+            this.label5.Location = new System.Drawing.Point(10, 42);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 18);
             this.label5.TabIndex = 12;
@@ -341,7 +341,7 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Georgia", 11F);
-            this.textBox4.Location = new System.Drawing.Point(88, 65);
+            this.textBox4.Location = new System.Drawing.Point(90, 38);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(153, 24);
             this.textBox4.TabIndex = 11;
@@ -376,7 +376,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView2.GridColor = System.Drawing.Color.White;
-            this.dataGridView2.Location = new System.Drawing.Point(27, 103);
+            this.dataGridView2.Location = new System.Drawing.Point(29, 76);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -388,8 +388,9 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(321, 268);
+            this.dataGridView2.Size = new System.Drawing.Size(321, 295);
             this.dataGridView2.TabIndex = 10;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // Column1
             // 
@@ -419,28 +420,6 @@
             // 
             this.errorProvider4.ContainerControl = this;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::ClienteWS.Properties.Resources.loading;
-            this.pictureBox1.Location = new System.Drawing.Point(123, 176);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(131, 120);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.ContextMenuStrip = this.contextMenuStrip1;
-            this.pictureBox2.Location = new System.Drawing.Point(734, 6);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(60, 52);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 18;
-            this.pictureBox2.TabStop = false;
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -458,12 +437,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(501, 21);
+            this.label1.Font = new System.Drawing.Font("Constantia", 11F);
+            this.label1.Location = new System.Drawing.Point(544, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 25);
+            this.label1.Size = new System.Drawing.Size(100, 18);
             this.label1.TabIndex = 19;
-            this.label1.Text = "¡Bienvenido, user!";
+            this.label1.Text = "¡Bienvenido...!";
             // 
             // imageList1
             // 
@@ -474,6 +453,28 @@
             this.imageList1.Images.SetKeyName(2, "perfil3.jpg");
             this.imageList1.Images.SetKeyName(3, "perfil2.jpg");
             this.imageList1.Images.SetKeyName(4, "perfil1.jpg");
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.ContextMenuStrip = this.contextMenuStrip1;
+            this.pictureBox2.Location = new System.Drawing.Point(734, 6);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(60, 52);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 18;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::ClienteWS.Properties.Resources.Spin_1s_200px__1_;
+            this.pictureBox1.Location = new System.Drawing.Point(112, 172);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(131, 120);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // almacen
             // 
@@ -490,8 +491,9 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.dataGridView2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "almacen";
-            this.Text = "almacen";
+            this.Text = "Almacen";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.almacen_FormClosing);
             this.Load += new System.EventHandler(this.almacen_Load);
             this.groupBox1.ResumeLayout(false);
@@ -501,9 +503,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

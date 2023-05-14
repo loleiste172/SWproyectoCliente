@@ -137,6 +137,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\Spin-1s-200px %281%29.gif" />
+    <None Include="Resources\Spin-1s-200px.gif" />
+    <None Include="Resources\ventas-logo-vector.png" />
+    <None Include="Resources\contra.png" />
+    <None Include="Resources\55119-200.png" />
+    <None Include="Resources\correo - copia.png" />
+    <None Include="Resources\correo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
